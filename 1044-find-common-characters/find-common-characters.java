@@ -1,37 +1,45 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class Solution {
     public List<String> commonChars(String[] words) {
-        // 1. Populate the list with ALL characters from the very first word
-        List<String> commonList = new ArrayList<>();
+        // Step 1: Put all character counts of the first word into the master map
+        Map<Character, Integer> masterMap = new HashMap<>();
         for (char ch : words[0].toCharArray()) {
-            commonList.add(String.valueOf(ch));
+            masterMap.put(ch, masterMap.getOrDefault(ch, 0) + 1);
         }
-        
-        // 2. Intersect this list with every subsequent word
+
+        // Step 2: Compare with the rest of the words
         for (int i = 1; i < words.length; i++) {
-            List<String> currentWordChars = new ArrayList<>();
+            Map<Character, Integer> currentMap = new HashMap<>();
             for (char ch : words[i].toCharArray()) {
-                currentWordChars.add(String.valueOf(ch));
+                currentMap.put(ch, currentMap.getOrDefault(ch, 0) + 1);
             }
-            
-            // Temporary list to hold characters common to both commonList and the current word
-            List<String> intersection = new ArrayList<>();
-            
-            for (String s : commonList) {
-                // If the current word contains the character, it's a match!
-                if (currentWordChars.contains(s)) {
-                    intersection.add(s);
-                    // Remove it from the current word list so duplicate letters aren't reused incorrectly
-                    currentWordChars.remove(s); 
+
+            // Update the master map to keep only the minimum frequency
+            Map<Character, Integer> updatedMap = new HashMap<>();
+            for (char ch : masterMap.keySet()) {
+                if (currentMap.containsKey(ch)) {
+                    // Keep the character, but use the smaller of the two counts
+                    int minCount = Math.min(masterMap.get(ch), currentMap.get(ch));
+                    updatedMap.put(ch, minCount);
                 }
             }
-            
-            // Update our master list to only contain elements that survived the intersection
-            commonList = intersection;
+            masterMap = updatedMap; // The intersection becomes the new master map
         }
-        
-        return commonList;
+
+        // Step 3: Convert the map results into the final List<String>
+        List<String> result = new ArrayList<>();
+        for (Map.Entry<Character, Integer> entry : masterMap.entrySet()) {
+            char ch = entry.getKey();
+            int count = entry.getValue();
+            for (int j = 0; j < count; j++) {
+                result.add(String.valueOf(ch));
+            }
+        }
+
+        return result;
     }
 }
