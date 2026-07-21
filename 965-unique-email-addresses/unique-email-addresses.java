@@ -1,48 +1,27 @@
+
+
 class Solution {
     public int numUniqueEmails(String[] emails) {
-        int n=emails.length;
-        HashSet<String> set=new HashSet<>();
-        int count=0;
-        for(int i=0;i<n;i++)
-        {  
-            int j=0;
-           StringBuilder local=new StringBuilder();
-           StringBuilder domain=new StringBuilder();
-           while (true) {     
-    char ch = emails[i].charAt(j); 
-    if (ch == '@') break;       
-            if(ch=='.')
-            {  j++;
-               continue;
-            }
-           else if(ch=='+')
-              {
-                while(ch!='@')
-                {
-                    ch= emails[i].charAt(++j);
-                  
-                }
-                break;
-              }
-              else
-              {
-                local.append(emails[i].charAt(j));
-              }
-              j++;            
+        Set<String> set = new HashSet<>();
+
+        for (String email : emails) {
+            // 1. Split the email at the '@' symbol
+            int atIndex = email.indexOf('@');
+            String local = email.substring(0, atIndex);
+            String domain = email.substring(atIndex); // includes '@'
+
+            // 2. Ignore everything after '+' in the local name
+            if (local.contains("+")) {
+                local = local.substring(0, local.indexOf('+'));
             }
 
-             int k=emails[i].length()-1;
-             while(emails[i].charAt(k)!='@'){
-                domain.insert(0,emails[i].charAt(k));
-                k--;
-             }
-             if(domain.toString().contains(".com")&&domain.length()>4)
-             {
-            String str= local.toString() + "@"+ domain.toString();
-              set.add(str);             
-             }
+            // 3. Remove all dots '.' from the local name
+            local = local.replace(".", "");
+
+            // 4. Combine and add to the HashSet
+            set.add(local + domain);
         }
-        return set.size();
 
+        return set.size();
     }
 }
