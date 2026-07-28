@@ -14,10 +14,9 @@ class Solution {
         {
             for(int b:nums4)
             {
-                int target=-(a+b);
-                if(map.containsKey(target))
+                if(map.containsKey(-(a+b)))
                 {
-                    count+=map.get(target);
+                    count+=map.getOrDefault(-(a+b),0);
                 }
             }
         }
