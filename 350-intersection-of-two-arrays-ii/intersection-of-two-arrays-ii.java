@@ -15,6 +15,11 @@ class Solution {
             map.put(num,map.get(num)-1);
            }
         }
-      return list.stream().mapToInt(Integer::intValue).toArray();   
+      int[] result = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            result[i] = list.get(i);
+        }
+
+        return result;
     }
 }
