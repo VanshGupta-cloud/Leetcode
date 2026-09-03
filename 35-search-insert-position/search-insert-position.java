@@ -3,11 +3,9 @@ class Solution {
         int n=nums.length;
         int left=0;
         int right=n-1;
-        int k=0;
         while(left<=right)
         {
          int mid=left+(right-left)/2;
-          k=mid;
          if(nums[mid]==target)
          {
             return mid;
@@ -20,9 +18,6 @@ class Solution {
            left=mid+1;
          }
         }
-        if(nums[k]>target)
-        return k;
-        else
-        return k+1;
+        return left;
     }
 }
