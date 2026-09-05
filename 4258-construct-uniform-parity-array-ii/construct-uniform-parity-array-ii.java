@@ -13,37 +13,36 @@ class Solution {
         if (minodd == Integer.MAX_VALUE) {
             return true;
         }
-        ArrayList<Integer> list = new ArrayList<>();
+        int count=0;
         for (int i = 0; i < n; i++) {
             if (nums1[i] % 2 == 0) {
-                list.add(nums1[i]);
+                count++;
             } else {
                 int p = nums1[i] - minodd;
                 if (p >= 1) {
-
-                    list.add(p);
+                  count++;
                 }
             }
         }
-        if (list.size() == n) {
+        if (count == n) {
             return true;
         }
-        list.clear();
+        count=0;
         for(int i=0;i<n;i++)
         {
             if(nums1[i]%2!=0)
             {
-              list.add(nums1[i]);
+             count++;
             }
             else
             {
                 int p = nums1[i] - minodd;
                 if (p >= 1) {
-                    list.add(p);
+                   count++;
                 }
             }
         }
-        if(list.size() == n) {
+        if(count == n) {
             return true;
         }
         return false;
