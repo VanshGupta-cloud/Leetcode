@@ -1,6 +1,6 @@
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) {
-        Stack<Integer> stack = new Stack<>();
+        Deque<Integer> stack = new ArrayDeque<>();
         int[] result = new int[temperatures.length];
 
         //stack is used to remember the no. of days recorded such that 
