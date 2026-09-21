@@ -1,16 +1,17 @@
 class Solution {
     public boolean checkDivisibility(int n) {
-        String s=String.valueOf(n);
-      int sum=0;
-      int product=1;
-      for(int i=0;i<s.length();i++)
-      { 
-        int x=Integer.parseInt(String.valueOf(s.charAt(i)));
-        sum+=x;
-        product*=x;
+      int s=0;
+      int p=1;
+      int temp=n;
+      while(temp!=0)
+      {
+        int val=temp%10;
+        s+=val;
+        p*=val;
+        temp=temp/10;
       }
-      int megasum=sum+product;
-      if(n%megasum==0)
+     
+      if(n%(s+p)==0)
       {
         return true;
       }
