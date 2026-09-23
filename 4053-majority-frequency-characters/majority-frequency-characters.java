@@ -1,5 +1,6 @@
 class Solution {
     public String majorityFrequencyGroup(String s) {
+        //freq counting of characters
       int[]charfreq=new int[26];
       int n=s.length();
       for(int i=0;i<n;i++)
@@ -27,6 +28,7 @@ class Solution {
            bestfreq=freq;
         }
       }
+      //every character matching the frequency of bestfreq is part of ans ,as bestfreq sticks with maxlength
       StringBuilder sb=new StringBuilder();
        for(int i=0;i<26;i++)
        {
